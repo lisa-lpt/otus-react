@@ -1,18 +1,13 @@
-import { useState } from "react";
+import { RouterProvider } from 'react-router';
+import { router } from './router/router';
+import { Provider } from 'react-redux';
+import { store } from './store/store';
 
 function App() {
-  const [count, setCount] = useState(0);
-
   return (
-    <section id="center">
-      <button
-        type="button"
-        className="counter"
-        onClick={() => setCount((count) => count + 1)}
-      >
-        Count is {count}
-      </button>
-    </section>
+    <Provider store={store}>
+      <RouterProvider router={router} />;
+    </Provider>
   );
 }
 
