@@ -1,6 +1,6 @@
 import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
 import type {
-  Book,
+  Data,
   ListToReadLaterItemType,
   ListToReadLaterState,
 } from './types';
@@ -10,7 +10,7 @@ const initialState: ListToReadLaterState = {
   totalQuantity: 0,
 };
 
-const calculateTotals = (items: ListToReadLaterItemType[]) => {
+export const calculateTotals = (items: ListToReadLaterItemType[]) => {
   const totalQuantity = items.reduce((sum, item) => sum + item.quantity, 0);
   return totalQuantity;
 };
@@ -19,19 +19,21 @@ export const ListToReadLaterSlice = createSlice({
   name: 'list to read later',
   initialState,
   reducers: {
-    addToList: (state, action: PayloadAction<Book>) => {
+    addToList: (state, action: PayloadAction<Data>) => {
       const book = action.payload;
-      const existingItem = state.items.find((item) => item.id === book.id);
+      const existingItem = state.items.find((item) => item.id === book.book.id);
 
       if (!existingItem) {
         state.items.push({
-          id: book.id,
-          name: book.name,
-          author: book.author,
-          img: book.img,
+          id: book.book.id,
+          name: book.book.name,
+          authorId: book.author.id,
+          author: book.author.name,
+          img: book.book.img,
           quantity: 1,
         });
       }
+
       const totals = calculateTotals(state.items);
       state.totalQuantity = totals;
     },

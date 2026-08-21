@@ -1,10 +1,17 @@
 [
   {
     "id": 1,
-    "name": "Fyodor Dostoevssky"
+    "name": "Fyodor Dostoevsky",
+    "img": "https://literatura5.narod.ru/dostoevsky.jpg"
   },
   {
     "id": 2,
-    "name": "William Shakespeare"
+    "name": "William Shakespeare",
+    "img": "https://literatura5.narod.ru/shakespeare1.jpg"
+  },
+  {
+    "id": 3,
+    "name": "Leo Tolstoy",
+    "img": "https://literatura5.narod.ru/tolstoy_1887-1.JPG"
   }
 ]

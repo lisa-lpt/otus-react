@@ -1,21 +1,29 @@
 import { Link } from 'react-router';
-import type { Book } from '../store/types';
 import { useDispatch, useSelector } from 'react-redux';
 import { addToList, removeFromList } from '../store/listToReadLaterSlice';
 import type { RootState } from '../store/store';
+import { Button, Card, Flex, Image, Title } from '@mantine/core';
+import type { Author, Book } from '../store/types';
 
 interface BookCardProps {
   book: Book;
+  author: Author;
 }
 
-export const BookCard = ({ book }: BookCardProps) => {
+export const BookCard = ({ book, author }: BookCardProps) => {
   const dispatch = useDispatch();
+
   const ListToReadItem = useSelector((state: RootState) =>
     state.list.items.find((item) => item.id === book.id)
   );
 
+  const data = {
+    book: { ...book },
+    author: { ...author },
+  };
+
   const handleAddToList = () => {
-    dispatch(addToList(book));
+    dispatch(addToList(data));
   };
 
   const handleRemoveFromList = () => {
@@ -23,26 +31,59 @@ export const BookCard = ({ book }: BookCardProps) => {
   };
 
   return (
-    <div>
-      <Link to={`/book/${book.id}`}>
-        <img src={book.img} alt={book.name} />
-      </Link>
-      <div>
+    <Card>
+      <Card.Section>
         <Link to={`/book/${book.id}`}>
-          <h3>{book.name}</h3>
+          <Image src={book.img} alt={book.name} w={400} />
         </Link>
-        <h4>{book.author}</h4>
-      </div>
-      <div>
-        <button onClick={handleAddToList}>Add to read later list</button>
-        <button onClick={handleRemoveFromList}>Remove from list</button>
-        <Link to={`/book/${book.id}`}> Подробнее</Link>
-      </div>
-      {ListToReadItem && (
-        <div>
-          <span>In the List to Read Later</span>
-        </div>
-      )}
-    </div>
+      </Card.Section>
+      <Flex
+        mih={100}
+        justify="space-around"
+        align="center"
+        direction="row"
+        wrap="wrap"
+      >
+        <Flex
+          mih={30}
+          gap={5}
+          justify="center"
+          align="center"
+          direction="column"
+          wrap="nowrap"
+        >
+          <Link to={`/book/${book.id}`}>
+            <Title order={3}>{book.name}</Title>
+          </Link>
+          <Link to={`/author/${author.id}`}>{author!.name}</Link>
+        </Flex>
+        <Flex
+          mih={30}
+          gap={5}
+          justify="center"
+          align="center"
+          direction="column"
+          wrap="nowrap"
+        >
+          {!ListToReadItem ? (
+            <Button variant="light" color="green" onClick={handleAddToList}>
+              <p>Add to read later list</p>
+            </Button>
+          ) : (
+            <Button
+              variant="light"
+              color="green"
+              onClick={handleAddToList}
+              disabled
+            >
+              <p>In the read later list</p>
+            </Button>
+          )}
+          <Button variant="light" color="green" onClick={handleRemoveFromList}>
+            Remove from list
+          </Button>
+        </Flex>
+      </Flex>
+    </Card>
   );
 };

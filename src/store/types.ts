@@ -7,6 +7,17 @@
   img: string;
 }
 
+export interface Author {
+  id: number;
+  name: string;
+  img: string;
+}
+
+export interface Data {
+  book: Book;
+  author: Author;
+}
+
 export interface BooksState {
   books: Book[];
   loading: boolean;
@@ -16,6 +27,7 @@ export interface BooksState {
 export interface ListToReadLaterItemType {
   id: number;
   name: string;
+  authorId: number;
   author: string;
   img: string;
   quantity: number;

@@ -1,10 +1,6 @@
 import { createBrowserRouter } from 'react-router';
 import { Layout } from '../component/Layout';
-import {
-  authorsCatalogLoader,
-  bookIdLoader,
-  booksCatalogLoader,
-} from './loaders';
+import { authorIdLoader, bookIdLoader, dataCatalogLoader } from './loaders';
 
 export const router = createBrowserRouter(
   [
@@ -15,8 +11,8 @@ export const router = createBrowserRouter(
         {
           index: true,
           lazy: async () => {
-            const { LoginPage } = await import('../pages/LoginPage');
-            return { Component: LoginPage };
+            const { HomePage } = await import('../pages/HomePage');
+            return { Component: HomePage };
           },
         },
         {
@@ -27,7 +23,7 @@ export const router = createBrowserRouter(
 
             return { Component: BookCatalogPage };
           },
-          loader: booksCatalogLoader,
+          loader: dataCatalogLoader,
         },
         {
           path: 'book/:id',
@@ -45,16 +41,15 @@ export const router = createBrowserRouter(
               await import('../pages/AuthorCatalogPage');
             return { Component: AuthorCatalogPage };
           },
-          loader: authorsCatalogLoader,
-          children: [
-            {
-              path: ':authorId',
-              lazy: async () => {
-                const { BookPage } = await import('../pages/BookPage');
-                return { Component: BookPage };
-              },
-            },
-          ],
+          loader: dataCatalogLoader,
+        },
+        {
+          path: 'author/:id',
+          lazy: async () => {
+            const { AuthorPage } = await import('../pages/AuthorPage');
+            return { Component: AuthorPage };
+          },
+          loader: authorIdLoader,
         },
         {
           path: 'readlater',

@@ -1,14 +1,11 @@
-import { Link } from 'react-router';
 import { ListToReadLater } from '../component/ListToReadlLater';
+import { Flex } from '@mantine/core';
 
 export const ListToReadLaterPage: React.FC = () => {
   return (
-    <div>
-      <h2>Books to read later</h2>
-      <Link to="/books">
-        <button>Go back to books catalog</button>
-      </Link>
+    <Flex justify="center" align="center" direction="column">
+      <h2>Read later list</h2>
       <ListToReadLater />
-    </div>
+    </Flex>
   );
 };
