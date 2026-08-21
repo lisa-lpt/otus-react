@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import { useDebounce } from '../hooks/useDebounce';
 import { Link, useLoaderData } from 'react-router';
 import { BookCatalog } from '../component/BookCatalog';
@@ -10,10 +10,14 @@ export const BookCatalogPage: React.FC = () => {
 
   const [searchTerm, setSearchTerm] = useState('');
 
-  const debouncedSearch = useDebounce(searchTerm, 3000);
+  const debouncedSearch = useDebounce(searchTerm, 500);
 
-  const filteredBooks = books.filter((book: Book) =>
-    book.name.toLowerCase().includes(debouncedSearch.toLowerCase())
+  const filteredBooks = useMemo(
+    () =>
+      books.filter((book: Book) =>
+        book.name.toLowerCase().includes(debouncedSearch.toLowerCase())
+      ),
+    [books, debouncedSearch]
   );
 
   return (

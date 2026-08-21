@@ -1,12 +1,13 @@
+import React from 'react';
+import { Card, CardSection, Flex, Image, Title } from '@mantine/core';
 import { Link } from 'react-router';
 import type { Author } from '../store/types';
-import { Card, CardSection, Flex, Image, Title } from '@mantine/core';
 
 interface BookCardProps {
   author: Author;
 }
 
-export const AuthorCard = ({ author }: BookCardProps) => {
+const AuthorCardBase = ({ author }: BookCardProps) => {
   return (
     <Card>
       <CardSection>
@@ -22,3 +23,5 @@ export const AuthorCard = ({ author }: BookCardProps) => {
     </Card>
   );
 };
+
+export const AuthorCard = React.memo(AuthorCardBase);
