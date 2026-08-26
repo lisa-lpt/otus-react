@@ -14,7 +14,7 @@ interface BookCardProps {
 const BookCardBase = ({ book, author }: BookCardProps) => {
   const dispatch = useDispatch();
 
-  const ListToReadItem = useSelector((state: RootState) =>
+  const listToReadItem = useSelector((state: RootState) =>
     state.list.items.find((item) => item.id === book.id)
   );
 
@@ -66,7 +66,7 @@ const BookCardBase = ({ book, author }: BookCardProps) => {
           direction="column"
           wrap="nowrap"
         >
-          {!ListToReadItem ? (
+          {!listToReadItem ? (
             <Button variant="light" color="green" onClick={handleAddToList}>
               <p>Add to read later list</p>
             </Button>
