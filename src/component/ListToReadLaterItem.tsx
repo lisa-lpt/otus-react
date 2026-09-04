@@ -1,3 +1,4 @@
+import React from 'react';
 import { Link } from 'react-router';
 import type { ListToReadLaterItemType } from '../store/types';
 import { Button, Card, CardSection, Flex, Image, Title } from '@mantine/core';
@@ -7,7 +8,7 @@ import { removeFromList } from '../store/listToReadLaterSlice';
 interface ListToReadLaterItemProps {
   item: ListToReadLaterItemType;
 }
-export const ListToReadLaterItem = ({ item }: ListToReadLaterItemProps) => {
+const ListToReadLaterItemBase = ({ item }: ListToReadLaterItemProps) => {
   const dispatch = useDispatch();
 
   const handleRemoveFromList = () => {
@@ -42,3 +43,5 @@ export const ListToReadLaterItem = ({ item }: ListToReadLaterItemProps) => {
     </Card>
   );
 };
+
+export const ListToReadLaterItem = React.memo(ListToReadLaterItemBase);

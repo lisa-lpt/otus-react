@@ -1,3 +1,4 @@
+import React from 'react';
 import { Flex } from '@mantine/core';
 import type { Author, Book } from '../store/types';
 import { BookCard } from './BookCard';
@@ -7,7 +8,7 @@ interface BookCatalogProps {
   authors: Author[];
 }
 
-export const BookCatalog = ({ products, authors }: BookCatalogProps) => {
+const BookCatalogBase = ({ products, authors }: BookCatalogProps) => {
   return (
     <Flex
       mih={50}
@@ -27,3 +28,5 @@ export const BookCatalog = ({ products, authors }: BookCatalogProps) => {
     </Flex>
   );
 };
+
+export const BookCatalog = React.memo(BookCatalogBase);

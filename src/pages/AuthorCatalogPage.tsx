@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import { Link, useLoaderData } from 'react-router';
 import { useDebounce } from '../hooks/useDebounce';
 import type { Author } from '../store/types';
@@ -10,10 +10,14 @@ export const AuthorCatalogPage: React.FC = () => {
 
   const [searchTerm, setSearchTerm] = useState('');
 
-  const debouncedSearch = useDebounce(searchTerm, 3000);
+  const debouncedSearch = useDebounce(searchTerm, 500);
 
-  const filteredAuthors = authors.filter((author: Author) =>
-    author.name.toLowerCase().includes(debouncedSearch.toLowerCase())
+  const filteredAuthors = useMemo(
+    () =>
+      authors.filter((author: Author) =>
+        author.name.toLowerCase().includes(debouncedSearch.toLowerCase())
+      ),
+    [authors, debouncedSearch]
   );
 
   return (

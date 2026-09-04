@@ -10,6 +10,7 @@ const LoadingFallback: React.FC = () => {
         minHeight: '50vh',
         flexDirection: 'column',
       }}
+      role="status"
     >
       <div
         style={{

@@ -1,3 +1,4 @@
+import React from 'react';
 import { Link } from 'react-router';
 import { useDispatch, useSelector } from 'react-redux';
 import { addToList, removeFromList } from '../store/listToReadLaterSlice';
@@ -10,10 +11,10 @@ interface BookCardProps {
   author: Author;
 }
 
-export const BookCard = ({ book, author }: BookCardProps) => {
+const BookCardBase = ({ book, author }: BookCardProps) => {
   const dispatch = useDispatch();
 
-  const ListToReadItem = useSelector((state: RootState) =>
+  const listToReadItem = useSelector((state: RootState) =>
     state.list.items.find((item) => item.id === book.id)
   );
 
@@ -65,7 +66,7 @@ export const BookCard = ({ book, author }: BookCardProps) => {
           direction="column"
           wrap="nowrap"
         >
-          {!ListToReadItem ? (
+          {!listToReadItem ? (
             <Button variant="light" color="green" onClick={handleAddToList}>
               <p>Add to read later list</p>
             </Button>
@@ -87,3 +88,5 @@ export const BookCard = ({ book, author }: BookCardProps) => {
     </Card>
   );
 };
+
+export const BookCard = React.memo(BookCardBase);

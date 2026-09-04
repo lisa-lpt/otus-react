@@ -1,10 +1,11 @@
+import React from 'react';
+import { Button, Flex } from '@mantine/core';
 import { useSelector } from 'react-redux';
 import type { RootState } from '../store/store';
 import { ListToReadLaterItem } from './ListToReadLaterItem';
-import { Button, Flex } from '@mantine/core';
 import { Link } from 'react-router';
 
-export const ListToReadLater = () => {
+const ListToReadLaterBase = () => {
   const { items, totalQuantity } = useSelector(
     (state: RootState) => state.list
   );
@@ -42,3 +43,5 @@ export const ListToReadLater = () => {
     </section>
   );
 };
+
+export const ListToReadLater = React.memo(ListToReadLaterBase);
