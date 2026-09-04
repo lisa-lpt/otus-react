@@ -30,7 +30,7 @@ export const BookCatalogPage: React.FC = () => {
         direction="column"
         wrap="nowrap"
       >
-        <Title order={2}> All books</Title>
+        <Title order={2}>All books</Title>
         <Flex
           direction={{ base: 'column', sm: 'row' }}
           gap={{ base: 'sm', sm: 'lg' }}
